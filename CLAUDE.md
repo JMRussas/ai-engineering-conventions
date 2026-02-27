@@ -12,9 +12,9 @@ No build step. This is a documentation-only repo.
 ai-engineering-conventions/
   README.md               Public-facing overview and convention index
   CLAUDE.md               This file — AI agent entry point
+  LICENSE                 MIT license
   conventions/            Individual convention docs (one per pattern)
   examples/               Reference implementations and samples
-  .claude/                Deep-dive docs for maintaining this repo
 ```
 
 ## Conventions for this repo

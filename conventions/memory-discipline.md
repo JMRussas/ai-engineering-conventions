@@ -30,7 +30,7 @@ Good memory is a compounding advantage. Bad memory is a compounding liability.
 
 ### Organization
 - **Organize by topic, not chronologically.** Memory files should be `patterns.md`, `debugging.md`, `preferences.md` — not `session-2024-01-15.md`.
-- **Keep the primary memory file concise.** If your tool auto-loads a memory file into context, keep it short (under 200 lines) and link to detail files.
+- **Keep the primary memory file concise.** If your tool auto-loads a memory file into context, keep it short and link to detail files. (See [documentation-layers.md](documentation-layers.md) for the reasoning behind the ~200-line guideline.)
 - **Update, don't append.** When a pattern evolves, update the existing entry. Don't add a new one that contradicts the old.
 - **Prune regularly.** Remove entries that are outdated, wrong, or no longer relevant.
 

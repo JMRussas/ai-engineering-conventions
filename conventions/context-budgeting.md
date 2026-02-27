@@ -29,7 +29,7 @@ Before giving the AI context, ask: "Does it need this to do the current task?"
 ### Strategies
 
 **1. Layered documentation (see [documentation-layers.md](documentation-layers.md))**
-- Always-loaded: lightweight entry point (~100-200 lines)
+- Always-loaded: lightweight entry point (see [documentation-layers.md](documentation-layers.md) for sizing guidance)
 - On-demand: deep-dive docs loaded only when relevant
 
 **2. Fresh conversations for fresh tasks**

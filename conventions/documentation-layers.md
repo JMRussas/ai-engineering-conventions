@@ -17,7 +17,7 @@ The two-layer approach gives you always-on lightweight context plus depth when n
 
 ### Layer 1: Entry point (`CLAUDE.md` or equivalent)
 
-Keep this concise — under 200 lines. It contains:
+Keep this concise — aim for under 200 lines. (This is a practical heuristic: ~200 lines of markdown is roughly 3-4k tokens, leaving most of the context window for actual code. Adjust based on your tool's context size.) It contains:
 - One-line project description
 - Build/run commands (the stuff the AI needs every session)
 - Project structure overview
