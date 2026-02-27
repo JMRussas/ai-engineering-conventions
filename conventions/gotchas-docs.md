@@ -72,10 +72,10 @@ Create a file at `.claude/gotchas.md` (or similar path the AI reads on demand):
 
 ## Database
 
-### Prisma migrations assume empty DB on first run
+### Prisma migrations fail on manually-created databases
 **Symptom:** Migration fails with "table already exists" on existing databases.
-**Cause:** `prisma migrate dev` creates all migrations from scratch, not from current state.
-**Fix:** Use `prisma migrate resolve` to mark existing migrations as applied.
+**Cause:** `prisma migrate dev` expects to manage schema via its migration history table. Running it against a DB that was set up manually (without migrations) means the history is empty but the tables exist.
+**Fix:** Use `prisma migrate resolve --applied <migration_name>` to mark existing migrations as already applied.
 ```
 
 ## Cross-project gotchas

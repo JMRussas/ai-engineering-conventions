@@ -52,5 +52,5 @@ AI: "Stopping — the plan assumed redis-client v4 but the project
 
 ## When to skip
 
-- **L1 tasks** where the "plan" is a few bullet points and the deviation is trivial (e.g., "I used `fs.readFile` instead of `fs.read` because the API is cleaner").
+- **L1 tasks** where the "plan" is a few bullet points and the deviation is trivial (e.g., "I used `fs.readFileSync` instead of `await fs.readFile` because the call is in a startup path").
 - **Explicit delegation:** You've told the AI "use your judgment on implementation details" — but even then, architectural changes warrant a check-in.

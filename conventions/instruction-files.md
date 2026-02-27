@@ -18,7 +18,7 @@ Instruction files are the bridge between "I want the AI to do X" and "the AI con
 ### Create the file
 Most AI tools look for a specific filename:
 - **Claude Code:** `CLAUDE.md` at project root
-- **Cursor:** `.cursorrules` at project root
+- **Cursor:** `.cursor/rules/` directory (MDC format; previously `.cursorrules`, now deprecated)
 - **GitHub Copilot:** `.github/copilot-instructions.md`
 - **Generic:** Any file you paste into system prompts
 

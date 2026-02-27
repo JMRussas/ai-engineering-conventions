@@ -26,7 +26,7 @@ Test-first with AI is more powerful than test-first with humans because the AI c
 
 - **Test behavior, not implementation.** "Given X input, expect Y output" — not "call method Z with parameter W."
 - **Include edge cases.** The AI handles happy paths well. It's the edges where it cuts corners.
-- **Test error conditions.** "When input is null, throw ArgumentError" — without this test, the AI might silently return null.
+- **Test error conditions.** "When input is invalid, raise ValueError" — without this test, the AI might silently return None.
 - **Keep tests readable.** The AI uses them as a spec. Clear test names and assertions help it understand intent.
 
 ### When to write tests after (and that's OK)

@@ -79,5 +79,5 @@ If implementation reveals the plan needs to change: stop, explain, propose new a
 See [.claude/gotchas.md](.claude/gotchas.md) for the full list. Key ones:
 
 - Vite HMR breaks silently with circular imports — use `npx madge --circular src/`
-- Zustand `set()` is async in React 18 strict mode — don't read state immediately after setting
+- Zustand `set()` is synchronous, but React 18 batches re-renders — `useStore()` won't reflect updates until next render. Use `store.getState()` for immediate reads outside React.
 - The API returns dates as Unix timestamps, not ISO strings — always use `fromTimestamp()` util
