@@ -87,6 +87,6 @@ AI: [next session, goes back to asking — session-level trust doesn't persist]
 
 ## When to skip
 
-- **Solo prototyping** on a throwaway repo where nothing is shared and everything is expendable.
+- **Solo prototyping** on a repo where nothing is shared and everything is expendable — but adopt trust boundaries before the code goes anywhere shared.
 - **Fully automated pipelines** where the AI operates within a sandboxed CI environment with its own safety nets (branch protection, required reviews, etc.).
 - **Explicit delegation** — you've told the AI to handle everything end-to-end and you'll review the PR.

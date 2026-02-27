@@ -42,7 +42,7 @@ my-project/
 
 - **Naming:** PascalCase for components/types, camelCase for functions/variables, kebab-case for file names
 - **Components:** Functional components only. Props interface named `{Component}Props`.
-- **State:** Zustand stores in src/store/. No prop drilling past 2 levels.
+- **State:** Zustand stores in src/store/. No prop drilling — if a component passes a prop it doesn't use, move that state to a Zustand store.
 - **API calls:** Always go through src/api/client.ts. Never call fetch directly.
 - **Error handling:** API errors throw `ApiError` (src/api/errors.ts). Components catch with error boundaries.
 - **Config:** All config in src/config.ts, loaded from environment variables. Never hardcoded.
@@ -78,6 +78,6 @@ If implementation reveals the plan needs to change: stop, explain, propose new a
 
 See [.claude/gotchas.md](.claude/gotchas.md) for the full list. Key ones:
 
-- Vite HMR breaks silently with circular imports — use `npx madge --circular src/`
+- Vite HMR breaks silently with circular imports — use `npx madge --circular --extensions ts,tsx --ts-config tsconfig.json src/`
 - Zustand `set()` is synchronous, but React 18 batches re-renders — `useStore()` won't reflect updates until next render. Use `store.getState()` for immediate reads outside React.
 - The API returns dates as Unix timestamps, not ISO strings — always use `fromTimestamp()` util

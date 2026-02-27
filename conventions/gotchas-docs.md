@@ -90,5 +90,5 @@ This can live in a shared repo or a RAG-indexed knowledge base for retrieval acr
 
 ## When to skip
 
-- **Throwaway prototypes** with a lifespan of hours or days.
+- **Early prototyping** — defer until the code stabilizes, but adopt before it's shared or promoted beyond throwaway status.
 - **Projects with zero surprises** — if the tech stack is vanilla and well-documented, you may not accumulate gotchas worth recording. (But you probably will.)

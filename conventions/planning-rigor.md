@@ -66,7 +66,7 @@ Every non-trivial task gets a plan. Use L1/L2/L3 based on risk:
 You can request a level explicitly: "plan this at L2"
 ```
 
-In practice:
+In practice (L2):
 ```
 You: "Add a dark mode toggle to settings"
 AI: "This is L2 — new feature touching multiple files. Here's my plan:
@@ -74,6 +74,42 @@ AI: "This is L2 — new feature touching multiple files. Here's my plan:
      - Modify Settings.tsx to add toggle component
      - Update globals.css with dark theme variables
      - 2 existing tests in Settings.test.tsx will need theme provider wrapper
+     Approve?"
+```
+
+In practice (L3):
+```
+You: "Add SSO login via OIDC"
+AI: "This is L3 — auth change with security implications. Here's my plan:
+
+     Approach: Add OIDC authorization code flow using openid-client library.
+     New callback endpoint, token validation middleware, session management.
+
+     Files to create/modify:
+     - src/auth/oidc.ts (new) — OIDC client config, token exchange
+     - src/auth/middleware.ts — add JWT validation for OIDC tokens
+     - src/routes/auth.ts — add /auth/callback and /auth/logout endpoints
+     - src/config.ts — add OIDC_ISSUER, OIDC_CLIENT_ID, OIDC_SECRET
+     - tests/auth.test.ts — mock OIDC provider, test callback flow
+
+     Risk assessment:
+     - Existing session auth must continue working during rollout
+     - Token validation must check issuer, audience, and expiry
+     - OIDC_SECRET must never be logged or exposed in error messages
+
+     Test strategy:
+     - Unit: token validation with expired/invalid/forged tokens
+     - Integration: full callback flow with mock OIDC provider
+     - Manual: test with real provider in staging
+
+     Rollback plan:
+     - Feature flag ENABLE_OIDC (default false). Remove OIDC routes
+       when flag is off. Existing session auth is untouched.
+
+     Open questions:
+     1. Support multiple OIDC providers or just one? (Proposing: one for now)
+     2. Store tokens in HTTP-only cookies or server-side sessions? (Proposing: cookies)
+
      Approve?"
 ```
 

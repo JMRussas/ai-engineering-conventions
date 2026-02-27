@@ -54,6 +54,13 @@ AI gets relevant context for its current task
 - Local models (e.g., `nomic-embed-text`) work well for code and avoid API costs
 - Keep embeddings local for proprietary code — don't send to external APIs unless acceptable
 
+**Practical considerations:**
+- **Initial indexing:** Minutes for small codebases (< 1k files), potentially hours for large ones (10k+). Plan for this.
+- **Re-indexing:** Prefer incremental re-indexing (only changed files) over full rebuilds. Full re-index on major version bumps.
+- **Query latency:** 50-200ms typical for local vector stores. Adds overhead to every AI tool call.
+- **Hardware:** Local embedding models strongly benefit from a GPU. CPU works but is ~10x slower for indexing. Query-time is fast either way.
+- **Storage:** Vector indexes are compact — typically 100-500MB for large codebases.
+
 **Retrieval interface:**
 - Expose as an MCP server tool so the AI can search naturally during conversation
 - Provide both semantic search (natural language queries) and exact lookup (type/function name)

@@ -83,6 +83,10 @@ git commit -m "feat: meaningful description"
 - `git reset --soft <hash>` — undoes commits, keeps changes staged. Use for squashing.
 - `git reset --hard <hash>` — undoes commits and discards all changes. Use when you want to throw away work entirely.
 
+### Branch strategy
+
+Checkpoint commits are safest on **feature branches**. On main (direct workflow), squashing rewrites history — only safe if you haven't pushed the intermediate checkpoints. If using `workflow: direct`, checkpoint locally and squash before your first push.
+
 ## Example
 
 ```
@@ -114,4 +118,4 @@ Session: Adding a search feature
 
 - **Trivial changes** (one-file, one-function) where there's nothing to checkpoint.
 - **You're using a tool with built-in undo** (some IDE-integrated AI tools track changes automatically).
-- **Solo rapid prototyping** where you don't care about rollback granularity.
+- **Solo rapid prototyping** — but even here, one checkpoint before a risky step costs almost nothing and can save significant cleanup time.

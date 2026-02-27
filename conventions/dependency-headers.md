@@ -32,6 +32,10 @@ Add this block to the top of every source file:
 - Use relative paths or module names, whichever is conventional for the project
 - For files with many dependents, list the primary ones and add "(+ N others)"
 
+### Automate with the project CLI
+
+The main burden of this convention is keeping headers up to date. If your project has a [CLI](project-cli.md), consider adding a `validate-headers` command that parses actual imports and flags stale dependency headers. This turns a manual discipline into an automated check.
+
 ### Complement with dependency maps
 
 For the full picture, maintain a dependency map table in `.claude/` docs:

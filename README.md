@@ -6,9 +6,13 @@ These aren't theoretical — they're patterns extracted from daily AI-augmented 
 
 ## Who this is for
 
-- **Individual developers** using AI assistants (Claude Code, Cursor, Copilot, etc.) who want more consistent, reliable results
+- **Individual developers** using agentic AI workflows (Claude Code, Cursor Composer, Aider, etc.) who want more consistent, reliable results. Many patterns also apply to autocomplete-style assistants (Copilot, etc.).
 - **Team leads** establishing AI workflows and wanting guardrails that don't kill velocity
 - **Anyone** who's noticed that AI output quality varies wildly and suspects the problem is process, not the model
+
+These conventions assume a single-developer-single-agent workflow. Multi-agent scenarios (multiple AI sessions, team members with different AI tools) may need adaptation.
+
+> **Note:** Examples in this repo use Claude Code conventions (CLAUDE.md, .claude/ directory), but the patterns themselves are tool-agnostic. Adapt the filenames and mechanics to your tool.
 
 ## How to use this
 
@@ -21,6 +25,11 @@ Each convention in `conventions/` follows the same format:
 - **When to skip** — not everything applies everywhere
 
 Start with the ones that address your biggest pain points. You don't need all of them.
+
+**New to AI-augmented development?** Start with these three:
+1. [Instruction Files](conventions/instruction-files.md) — foundational; everything else builds on this
+2. [Checkpoint Commits](conventions/checkpoint-commits.md) — immediate safety net, zero setup cost
+3. [Planning Rigor](conventions/planning-rigor.md) — prevents the most common failure mode (AI builds the wrong thing)
 
 ## Conventions
 
@@ -60,6 +69,17 @@ The `examples/` directory contains a complete working setup:
 
 - [examples/CLAUDE.md](examples/CLAUDE.md) — A full AI instruction file incorporating many of these conventions
 - [examples/cli-example.py](examples/cli-example.py) — A sample project CLI
+
+## Convention interactions
+
+Some conventions create productive tension with each other. This is by design — you resolve the tension based on your context.
+
+| Convention A | Convention B | Tension | Resolution |
+|-------------|-------------|---------|------------|
+| Checkpoint Commits | Guardrail Hooks | Hooks slow down rapid checkpointing | Skip hooks for checkpoints (`--no-verify`), rely on CI before merge |
+| Context Budgeting | RAG-Augmented Dev | RAG retrieval can expand context | Set `top_k` low, filter by source; RAG replaces context, not adds to it |
+| Test-First | Incremental Trust | Should the AI run tests freely? | Yes — running tests is local and reversible, always in the "free" trust tier |
+| Design Change Protocol | Planning Rigor L1 | L1 says "just go"; protocol says "stop on deviations" | Protocol only applies to L2+ tasks. L1 deviations are expected and fine. |
 
 ## Contributing
 

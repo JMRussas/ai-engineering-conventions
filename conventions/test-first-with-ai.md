@@ -70,5 +70,5 @@ def test_parse_duration_negative():
 ## When to skip
 
 - **Trivial changes** where the test would be more complex than the code (e.g., renaming a variable).
-- **Prototype/spike work** where you're exploring possibilities, not building to spec.
+- **Prototype/spike work** where you're exploring possibilities, not building to spec — but write tests before promoting the prototype to production code.
 - **Infrastructure/config changes** that are hard to unit test (but consider integration tests).
