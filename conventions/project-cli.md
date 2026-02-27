@@ -55,9 +55,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command")
 
-    sub.add_parser("deps", help="Show dependency graph")
+    p_deps = sub.add_parser("deps", help="Show dependency graph")
+    p_deps.add_argument("--module", required=True, help="Module name to inspect")
     sub.add_parser("check-config", help="Validate config files")
-    sub.add_parser("test-invariant", help="Verify project invariants")
+    p_inv = sub.add_parser("test-invariant", help="Verify project invariants")
+    p_inv.add_argument("name", help="Invariant to check")
 
     args = parser.parse_args()
     commands = {"deps": cmd_deps, "check-config": cmd_check_config,

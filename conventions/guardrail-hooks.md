@@ -24,12 +24,14 @@ Use a framework like `husky` (JS), `pre-commit` (Python), or `lefthook` (languag
 # .pre-commit-config.yaml (Python ecosystem)
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files    # AI sometimes generates large test fixtures
       - id: detect-private-key          # Catch accidental key inclusion
       - id: check-merge-conflict        # Catch unresolved markers
       - id: trailing-whitespace
   - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.0
     hooks:
       - id: ruff                        # Linting
       - id: ruff-format                 # Formatting
@@ -42,8 +44,17 @@ repos:
         pass_filenames: false
 ```
 
+```bash
+# JS/TS ecosystem — husky + lint-staged setup
+npx husky init                              # Creates .husky/ directory
+npm install --save-dev lint-staged
+
+# .husky/pre-commit (created by husky init, edit to run lint-staged)
+npx lint-staged
+```
+
 ```json
-// package.json (JS/TS ecosystem with husky + lint-staged)
+// package.json — lint-staged config
 {
   "lint-staged": {
     "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
@@ -65,27 +76,23 @@ repos:
 
 ### Claude Code hooks (tool-specific)
 
-Claude Code supports hooks that run in response to AI actions:
+Claude Code supports hooks that run in response to AI actions. Use these for real checks, not just logging:
 
 ```json
 // .claude/settings.json
 {
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "command": "echo 'Review: AI is modifying files'"
-      }
-    ],
     "PostToolUse": [
       {
-        "matcher": "Bash",
-        "command": "echo 'AI ran a shell command'"
+        "matcher": "Write|Edit",
+        "command": "npx eslint --no-fix $CLAUDE_FILE_PATH 2>/dev/null || echo 'LINT ERRORS in modified file'"
       }
     ]
   }
 }
 ```
+
+This runs ESLint on every file the AI writes or edits, catching lint violations immediately rather than at commit time.
 
 ### CI guardrails (shared, authoritative)
 

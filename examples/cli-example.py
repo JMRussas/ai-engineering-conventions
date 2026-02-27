@@ -7,10 +7,9 @@ Real CLIs grow organically as the AI discovers what queries it needs.
 Commands here are illustrative — your project's commands will be different.
 
 Usage:
-    python tools/cli.py deps [--module MODULE]
+    python tools/cli.py deps --module MODULE
     python tools/cli.py check-config
     python tools/cli.py find-type TYPE_NAME
-    python tools/cli.py unused-exports
     python tools/cli.py api-routes
 """
 
@@ -30,17 +29,17 @@ def cmd_deps(args):
     imports_from = []  # What this module depends on
     imported_by = []   # What depends on this module
 
-    for ts_file in SRC_DIR.rglob("*.ts"):
+    for ts_file in SRC_DIR.rglob("*.ts*"):
         relative = ts_file.relative_to(SRC_DIR)
         content = ts_file.read_text(encoding="utf-8", errors="replace")
 
-        # Check if this file imports the target
-        if re.search(rf"""from\s+['""].*{re.escape(target)}""", content):
-            if target not in str(relative):
+        # Check if this file imports the target (match path segment, not substring)
+        if re.search(rf"""from\s+['"].*\b{re.escape(target)}\b""", content):
+            if not any(part == target for part in relative.parts):
                 imported_by.append(str(relative))
 
-        # Check if the target file imports from elsewhere
-        if target in str(relative):
+        # Check if the target file imports from elsewhere (match path segment)
+        if any(part == target or part.startswith(target + ".") for part in relative.parts):
             for match in re.finditer(r"""from\s+['"]([^'"]+)['"]""", content):
                 imports_from.append(match.group(1))
 
@@ -98,7 +97,7 @@ def cmd_find_type(args):
     )
 
     found = []
-    for ts_file in SRC_DIR.rglob("*.ts"):
+    for ts_file in SRC_DIR.rglob("*.ts*"):
         content = ts_file.read_text(encoding="utf-8", errors="replace")
         for i, line in enumerate(content.splitlines(), 1):
             if pattern.search(line):
@@ -118,7 +117,7 @@ def cmd_api_routes(args):
     )
 
     routes = []
-    for ts_file in SRC_DIR.rglob("*.ts"):
+    for ts_file in SRC_DIR.rglob("*.ts*"):
         content = ts_file.read_text(encoding="utf-8", errors="replace")
         for match in route_pattern.finditer(content):
             method = match.group(2).upper()
