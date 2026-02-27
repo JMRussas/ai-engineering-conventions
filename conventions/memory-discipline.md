@@ -18,7 +18,7 @@ Good memory is a compounding advantage. Bad memory is a compounding liability.
 ### What to save
 - **Stable patterns** confirmed across multiple interactions (naming conventions, preferred libraries, workflow preferences)
 - **Architectural decisions** and their rationale
-- **User preferences** for communication, tools, and workflow
+- **Personal preferences** for communication, tools, and workflow (memory is per-developer; team-wide conventions belong in [instruction files](instruction-files.md))
 - **Solutions to recurring problems** — things the AI would otherwise re-discover each session
 - **Explicit user requests** — "always use bun", "never auto-commit" (save immediately, don't wait for confirmation)
 

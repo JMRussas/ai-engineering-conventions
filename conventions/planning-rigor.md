@@ -15,16 +15,16 @@ The core insight: a 3-file feature is often less risky than a 1-file auth change
 
 ## How
 
-### L1 — Quick (bug fixes, small tweaks, < 3 files)
+### L1 — Quick (low-risk changes)
 
 - Brief approach in a few bullet points, then execute.
-- **When:** Single-file fixes, config changes, adding a test, copy changes.
+- **When:** Bug fixes, config changes, adding a test, copy changes. Typically 1-2 files.
 - **Plan contents:** What you're changing and why. That's it.
 
-### L2 — Standard (features, refactors, 3-10 files)
+### L2 — Standard (moderate-risk changes)
 
 - Written plan with file list, proposed approach, and test impact.
-- **When:** New features, multi-file refactors, new endpoints, UI components.
+- **When:** New features, multi-file refactors, new endpoints, UI components. Typically 3-10 files, but risk matters more than count.
 - **Plan contents:**
   - Summary of approach
   - Files to create/modify (with what changes)

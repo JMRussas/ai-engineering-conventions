@@ -23,7 +23,7 @@ Checkpoint commits make AI-assisted work low-risk. Try something, commit if it w
 3. Commit: "checkpoint: add user validation logic"
 4. AI continues to next step
 5. Something goes wrong at step N
-6. git reset --soft HEAD~1  (or however many checkpoints back)
+6. git reset HEAD~1  (or however many checkpoints back — unstages and keeps files)
 7. Try again from the last good state
 ```
 
@@ -60,23 +60,28 @@ git commit -m "feat: add authentication system"
 ### Quick commands
 
 ```bash
-# Fast checkpoint
-git add -A && git commit -m "checkpoint: [description]"
+# Fast checkpoint (stage specific files, or -A if you'll squash before pushing)
+git add <files> && git commit -m "checkpoint: [description]"
 
 # See checkpoint history
 git log --oneline -10
 
-# Revert last checkpoint
-git reset --soft HEAD~1
+# Undo last checkpoint (keeps changes as unstaged files)
+git reset HEAD~1
 
-# Revert to specific checkpoint
+# Undo to specific checkpoint
 git log --oneline  # find the hash
-git reset --soft <hash>
+git reset <hash>
 
-# Squash all checkpoints into one commit
+# Squash all checkpoints into one commit (--soft keeps changes staged)
 git reset --soft <first-checkpoint-parent-hash>
 git commit -m "feat: meaningful description"
 ```
+
+**`git reset` modes:**
+- `git reset <hash>` (default `--mixed`) — undoes commits, keeps changes as unstaged files. Use for retrying.
+- `git reset --soft <hash>` — undoes commits, keeps changes staged. Use for squashing.
+- `git reset --hard <hash>` — undoes commits and discards all changes. Use when you want to throw away work entirely.
 
 ## Example
 
@@ -93,7 +98,7 @@ Session: Adding a search feature
 → git commit -m "checkpoint: add SearchResults page"
 
 [AI tries to add autocomplete — breaks the SearchBar]
-→ git reset --soft HEAD~1   ← back to working SearchResults
+→ git reset HEAD~1   ← undo last checkpoint, back to working SearchResults
 → "Let's try a different approach to autocomplete"
 
 [AI adds autocomplete correctly this time]

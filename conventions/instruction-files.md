@@ -35,7 +35,7 @@ Most AI tools look for a specific filename:
 - Lengthy tutorials or explanations (link to docs instead)
 - Information that changes frequently (use dynamic sources like CLI tools)
 - Secrets or credentials (obviously)
-- Personal preferences that wouldn't apply to the whole team
+- Personal preferences that wouldn't apply to the whole team (those belong in per-developer [memory](memory-discipline.md), not shared instruction files)
 
 ### Treat it like code
 - **Review changes.** When someone updates the instruction file, review the PR like any other code change. A bad instruction can cause systematic errors.
