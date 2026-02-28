@@ -14,6 +14,7 @@ Usage:
 """
 
 import argparse
+import itertools
 import json
 import re
 import sys
@@ -22,6 +23,13 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent
 SRC_DIR = PROJECT_ROOT / "src"
 
+TS_EXTENSIONS = ("*.ts", "*.tsx")
+
+
+def ts_files(root=SRC_DIR):
+    """Yield all .ts and .tsx files under root."""
+    return itertools.chain.from_iterable(root.rglob(ext) for ext in TS_EXTENSIONS)
+
 
 def cmd_deps(args):
     """Show what a module imports and what imports it."""
@@ -29,12 +37,13 @@ def cmd_deps(args):
     imports_from = []  # What this module depends on
     imported_by = []   # What depends on this module
 
-    for ts_file in SRC_DIR.rglob("*.ts*"):
+    for ts_file in ts_files():
         relative = ts_file.relative_to(SRC_DIR)
         content = ts_file.read_text(encoding="utf-8", errors="replace")
 
         # Check if this file imports the target (match path segment, not substring)
-        if re.search(rf"""from\s+['"].*\b{re.escape(target)}\b""", content):
+        # Use [/'"] boundaries to avoid matching "auth" inside "auth-utils"
+        if re.search(rf"""from\s+['"].*[/']{re.escape(target)}['"/]""", content):
             if not any(part == target for part in relative.parts):
                 imported_by.append(str(relative))
 
@@ -97,7 +106,7 @@ def cmd_find_type(args):
     )
 
     found = []
-    for ts_file in SRC_DIR.rglob("*.ts*"):
+    for ts_file in ts_files():
         content = ts_file.read_text(encoding="utf-8", errors="replace")
         for i, line in enumerate(content.splitlines(), 1):
             if pattern.search(line):
@@ -117,7 +126,7 @@ def cmd_api_routes(args):
     )
 
     routes = []
-    for ts_file in SRC_DIR.rglob("*.ts*"):
+    for ts_file in ts_files():
         content = ts_file.read_text(encoding="utf-8", errors="replace")
         for match in route_pattern.finditer(content):
             method = match.group(2).upper()

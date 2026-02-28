@@ -86,7 +86,7 @@ For patterns that recur across multiple projects, consider maintaining a separat
 - "AI generates Python 3.9 syntax when the project targets 3.8"
 - "AI assumes Jest globals are available without importing in Vitest projects"
 
-This can live in a shared repo or a RAG-indexed knowledge base for retrieval across projects.
+This can live in a shared repo or a [RAG-indexed knowledge base](rag-augmented-dev.md) for retrieval across projects.
 
 ## When to skip
 

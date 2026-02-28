@@ -30,6 +30,7 @@ The core insight: a 3-file feature is often less risky than a 1-file auth change
   - Files to create/modify (with what changes)
   - Test impact (which existing tests break and why)
   - Open questions with proposed answers
+  - CLI commands to add (if your project has a [project CLI](project-cli.md))
 
 ### L3 — Thorough (security, data migrations, multi-system changes)
 
@@ -74,6 +75,8 @@ AI: "This is L2 — new feature touching multiple files. Here's my plan:
      - Modify Settings.tsx to add toggle component
      - Update globals.css with dark theme variables
      - 2 existing tests in Settings.test.tsx will need theme provider wrapper
+     - Open question: persist preference in localStorage or user profile API?
+       (Proposing: localStorage — no backend change needed)
      Approve?"
 ```
 
@@ -96,6 +99,17 @@ AI: "This is L3 — auth change with security implications. Here's my plan:
      - Existing session auth must continue working during rollout
      - Token validation must check issuer, audience, and expiry
      - OIDC_SECRET must never be logged or exposed in error messages
+
+     Security review:
+     - Callback endpoint must validate `state` parameter to prevent CSRF
+     - Token exchange must use PKCE (code_challenge) for public clients
+     - ID token signature must be verified against provider's JWKS
+     - Redirect URI must be exact-match validated, not prefix-match
+
+     Migration safety:
+     - No DB schema changes — OIDC tokens stored in existing sessions table
+     - Verify sessions table has a `provider` column (added in migration 023)
+     - If column missing: need a migration first (separate L3 plan)
 
      Test strategy:
      - Unit: token validation with expired/invalid/forged tokens

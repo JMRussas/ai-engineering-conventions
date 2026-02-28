@@ -76,7 +76,7 @@ npx lint-staged
 
 ### Claude Code hooks (tool-specific)
 
-Claude Code supports hooks that run in response to AI actions. Use these for real checks, not just logging:
+Claude Code supports hooks that run in response to AI actions. Hooks receive tool data via stdin as JSON — use `jq` to extract fields like the file path. Exit code `0` allows the action, exit code `2` blocks it and shows feedback.
 
 ```json
 // .claude/settings.json
@@ -85,14 +85,30 @@ Claude Code supports hooks that run in response to AI actions. Use these for rea
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
-        "command": "npx eslint --no-fix $CLAUDE_FILE_PATH 2>/dev/null || echo 'LINT ERRORS in modified file'"
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/lint-check.sh"
+          }
+        ]
       }
     ]
   }
 }
 ```
 
-This runs ESLint on every file the AI writes or edits, catching lint violations immediately rather than at commit time.
+```bash
+# .claude/hooks/lint-check.sh
+#!/bin/bash
+FILE_PATH=$(cat | jq -r '.tool_input.file_path // empty')
+[ -z "$FILE_PATH" ] && exit 0
+
+if [[ "$FILE_PATH" == *.ts || "$FILE_PATH" == *.tsx ]]; then
+  npx eslint --no-fix "$FILE_PATH" 2>&1 || exit 2
+fi
+```
+
+This runs ESLint on every TypeScript file the AI writes or edits, blocking the action if lint errors are found.
 
 ### CI guardrails (shared, authoritative)
 

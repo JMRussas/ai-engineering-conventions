@@ -2,7 +2,7 @@
 
 ## What
 
-Treat your AI instruction file (CLAUDE.md, .cursorrules, .github/copilot-instructions.md, etc.) as a version-controlled project artifact. Check it into the repo, review changes like code, and iterate on it as the project evolves.
+Treat your AI instruction file (CLAUDE.md, .cursor/rules/, .github/copilot-instructions.md, etc.) as a version-controlled project artifact. Check it into the repo, review changes like code, and iterate on it as the project evolves.
 
 ## Why
 
@@ -18,7 +18,7 @@ Instruction files are the bridge between "I want the AI to do X" and "the AI con
 ### Create the file
 Most AI tools look for a specific filename:
 - **Claude Code:** `CLAUDE.md` at project root
-- **Cursor:** `.cursor/rules/` directory (MDC format; previously `.cursorrules`, now deprecated)
+- **Cursor:** `.cursor/rules/` directory (previously `.cursorrules`, now deprecated). Tool-specific filenames change frequently — check your tool's current docs.
 - **GitHub Copilot:** `.github/copilot-instructions.md`
 - **Generic:** Any file you paste into system prompts
 

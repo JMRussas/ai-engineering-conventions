@@ -60,7 +60,7 @@ git commit -m "feat: add authentication system"
 ### Quick commands
 
 ```bash
-# Fast checkpoint (stage specific files, or -A if you'll squash before pushing)
+# Fast checkpoint (stage specific files to avoid committing unintended changes)
 git add <files> && git commit -m "checkpoint: [description]"
 
 # See checkpoint history
@@ -102,7 +102,8 @@ Session: Adding a search feature
 → git commit -m "checkpoint: add SearchResults page"
 
 [AI tries to add autocomplete — breaks the SearchBar]
-→ git reset HEAD~1   ← undo last checkpoint, back to working SearchResults
+→ Don't commit the broken state!
+→ git checkout -- .   ← discard the broken changes, back to working SearchResults
 → "Let's try a different approach to autocomplete"
 
 [AI adds autocomplete correctly this time]

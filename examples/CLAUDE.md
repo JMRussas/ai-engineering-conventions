@@ -1,7 +1,6 @@
 # Example CLAUDE.md — Reference Implementation
 
-This is a complete AI instruction file that incorporates conventions from this repository.
-It's a real, working config — not a template. Adapt what's useful, drop what doesn't fit.
+This is a reference AI instruction file showing how conventions from this repository fit together. The project it describes is fictional — adapt the structure and patterns to your own codebase.
 
 ---
 

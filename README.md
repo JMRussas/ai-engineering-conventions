@@ -65,9 +65,9 @@ Start with the ones that address your biggest pain points. You don't need all of
 
 ## Reference Implementation
 
-The `examples/` directory contains a complete working setup:
+The `examples/` directory contains reference implementations:
 
-- [examples/CLAUDE.md](examples/CLAUDE.md) — A full AI instruction file incorporating many of these conventions
+- [examples/CLAUDE.md](examples/CLAUDE.md) — A reference AI instruction file incorporating many of these conventions
 - [examples/cli-example.py](examples/cli-example.py) — A sample project CLI
 
 ## Convention interactions
@@ -76,7 +76,7 @@ Some conventions create productive tension with each other. This is by design �
 
 | Convention A | Convention B | Tension | Resolution |
 |-------------|-------------|---------|------------|
-| Checkpoint Commits | Guardrail Hooks | Hooks slow down rapid checkpointing | Skip hooks for checkpoints (`--no-verify`), rely on CI before merge |
+| Checkpoint Commits | Guardrail Hooks | Hooks slow down rapid checkpointing | Skip hooks for checkpoints (`--no-verify`) if CI is required before merge. Without CI, keep hooks on — they're your only safety net. |
 | Context Budgeting | RAG-Augmented Dev | RAG retrieval can expand context | Set `top_k` low, filter by source; RAG replaces context, not adds to it |
 | Test-First | Incremental Trust | Should the AI run tests freely? | Yes — running tests is local and reversible, always in the "free" trust tier |
 | Design Change Protocol | Planning Rigor L1 | L1 says "just go"; protocol says "stop on deviations" | Protocol only applies to L2+ tasks. L1 deviations are expected and fine. |
