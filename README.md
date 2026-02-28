@@ -81,6 +81,12 @@ Some conventions create productive tension with each other. This is by design â€
 | Test-First | Incremental Trust | Should the AI run tests freely? | Yes â€” running tests is local and reversible, always in the "free" trust tier |
 | Design Change Protocol | Planning Rigor L1 | L1 says "just go"; protocol says "stop on deviations" | Protocol only applies to L2+ tasks. L1 deviations are expected and fine. |
 
+## Development
+
+These conventions are maintained with the same rigor they describe. After the initial 14-convention release, the collection went through 6 review passes catching factual errors (wrong Python exception types, incorrect Zustand async behavior), broken code examples (invalid regex, missing config), and contradictions between conventions. Each fix is a separate commit with a clear description of what was wrong and why.
+
+See [commit history](https://github.com/JMRussas/ai-engineering-conventions/commits/main) for the full review trail.
+
 ## Contributing
 
 Found a convention that works for you? Open a PR. The bar is:
