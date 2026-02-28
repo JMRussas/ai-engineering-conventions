@@ -76,14 +76,14 @@ Some conventions create productive tension with each other. This is by design �
 
 | Convention A | Convention B | Tension | Resolution |
 |-------------|-------------|---------|------------|
-| Checkpoint Commits | Guardrail Hooks | Hooks slow down rapid checkpointing | Skip hooks for checkpoints (`--no-verify`) if CI is required before merge. Without CI, keep hooks on — they're your only safety net. |
+| Checkpoint Commits | Guardrail Hooks | Hooks slow down rapid checkpointing | Skip hooks for checkpoints (`--no-verify`) if CI is required before merge. Without CI, keep hooks on — they're your only safety net. Note: `--no-verify` means lint violations, type errors, and accidental secrets can land in your local history — CI catches them before merge, but if you force-push or cherry-pick from that history, you bypass the safety net entirely. |
 | Context Budgeting | RAG-Augmented Dev | RAG retrieval can expand context | Set `top_k` low, filter by source; RAG replaces context, not adds to it |
 | Test-First | Incremental Trust | Should the AI run tests freely? | Yes — running tests is local and reversible, always in the "free" trust tier |
 | Design Change Protocol | Planning Rigor L1 | L1 says "just go"; protocol says "stop on deviations" | Protocol only applies to L2+ tasks. L1 deviations are expected and fine. |
 
-## Development
+## How this was built
 
-These conventions are maintained with the same rigor they describe. After the initial 14-convention release, the collection went through 6 review passes catching factual errors (wrong Python exception types, incorrect Zustand async behavior), broken code examples (invalid regex, missing config), and contradictions between conventions. Each fix is a separate commit with a clear description of what was wrong and why.
+These conventions are maintained with the same rigor they describe. The collection itself was developed with AI assistance and structured review — demonstrating the pattern it advocates. After the initial 14-convention release, the collection went through 6 review passes catching factual errors (wrong Python exception types, incorrect Zustand async behavior), broken code examples (invalid regex, missing config), and contradictions between conventions. Each fix is a separate commit with a clear description of what was wrong and why.
 
 See [commit history](https://github.com/JMRussas/ai-engineering-conventions/commits/main) for the full review trail.
 
